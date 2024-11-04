@@ -1,4 +1,4 @@
-# Set Up Version Control (e.g., GitHub)
+# Set Up Version Control (GitHub)
 
 To set up version control using Git and GitHub, follow these steps:
 
