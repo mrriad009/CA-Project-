@@ -1,0 +1,1 @@
+The main objective of Week 1 is to define the project scope, outline key features, choose the programming language and tools, and set up the development environment with version control. This will provide a foundation for future development of the Virtual CPU Emulator.
