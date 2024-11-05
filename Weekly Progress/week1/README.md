@@ -1,6 +1,6 @@
 # 🛠️ Objective
 
-The primary **objective** of **Week 1** is to lay down a solid groundwork for building the **Virtual CPU Emulator**. This includes:
+**Week 1** is all about getting set up for our Virtual CPU Emulator project. This week, we’ll make sure we have a clear plan and the tools we need to get started. Here’s what we’re focusing on:
 
 1. **Defining the Project Scope**  
    - Establishing the emulator's goals and limitations.
