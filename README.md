@@ -35,3 +35,19 @@ The goal of this project is to build a virtual CPU emulator. The emulator will r
 - **Documentation**: We will use Markdown for text-based documentation to keep our project organized and PPT for the final presentation.
 
 
+## Project Folder Structure
+
+Our project files are organized in a way that keeps everything neat and easy to find. Here’s how it’s set up:
+
+    Virtual_CPU_Emulator/
+    
+    ├── README.md           # Overview of the project and setup instructions
+    ├── Weekly Progress     # Folder for tracking progress each week
+    │       ├── Week1       # Folder for Week 1’s goals and notes
+    │       ├── Week2       # Folder for Week 2’s work
+    │       ├── Week3       # And so on, each week’s work gets its own folder
+    ├── docs/               # All documentation goes here
+    ├── src/                # The main source code for the emulator
+    ├── tests/              # Test programs to check if everything works
+    └── results/            # Any profiling data, benchmark results, or debug logs
+
