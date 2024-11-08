@@ -47,7 +47,7 @@ Our project files are organized in a way that keeps everything neat and easy to 
     │       ├── Week2       # Folder for Week 2’s work
     │       ├── Week3       # And so on, each week’s work gets its own folder
     ├── docs/               # All documentation goes here
-    ├── src/                # The main source code for the emulator
+    ├── src/                # The main source code for the emulator ( i.e ALU,Memory,Register etc)
     ├── tests/              # Test programs to check if everything works
-    └── results/            # Any profiling data, benchmark results, or debug logs
+    └── results/            # Any profiling data, results, or debug logs
 
