@@ -17,3 +17,5 @@ To set up version control using Git and GitHub, follow these steps:
 - Use the following command to clone your repository to your local machine:
 
 git clone https://github.com/mrriad009/CA-Project-.git
+
+**We use Github Desktop for Commit and Push and Update**
