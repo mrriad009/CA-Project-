@@ -48,7 +48,7 @@ string convertToMachineCode(const string &line) {
 
 int main() {
     vector<string> assemblyCode = {
-        "MOV R1 R2",
+        "MOV R1 5",
         "ADD R2 R3",
         "SUB R3 R1",
         "JMP R4   "

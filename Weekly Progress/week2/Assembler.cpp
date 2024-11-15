@@ -36,10 +36,15 @@ string toBinary8(int number) {
     return bitset<8>(number).to_string();
 }
 
+// Function to check if a string is a valid register
+bool isRegister(const string& operand) {
+    return registerMap.find(operand) != registerMap.end();
+}
+
 string assemble(const string &instruction) {
     istringstream iss(instruction);
     string opcode, R1, R2;
-    iss >> opcode >> R1 >> R2;
+    iss >> opcode;
 
     // Check for valid opcode
     if (instructionSet.find(opcode) == instructionSet.end()) {
@@ -49,34 +54,47 @@ string assemble(const string &instruction) {
     // Start with opcode's binary representation
     string binaryCode = instructionSet[opcode];
 
-    // Convert operands based on instruction type
-if (opcode == "ADD" || opcode == "SUB") {
-    // For ADD and SUB, use two registers (e.g., "ADD R1 R2")
-    // Format: [opcode] [register1] [register2]
-    string reg1 = registerMap[R1];
-    string reg2 = registerMap[R2];
-    binaryCode += " " + reg1 + " " + reg2;
-    
-} else if (opcode == "LOAD" || opcode == "STORE") {
-    // For LOAD and STORE, use one register and one address (e.g., "LOAD R1 100")
-    // Format: [opcode] [register] [address]
-    string reg = registerMap[R1];
-    string address = toBinary8(stoi(R2));  // Convert address to 8-bit binary
-    binaryCode += " " + reg + " " + address;
-    
-} else if (opcode == "JUMP" || opcode == "JZ" || opcode == "JNZ") {
-    // For JUMP, JZ, and JNZ, use one address (e.g., "JUMP 300")
-    // Format: [opcode] [address]
-    string address = toBinary8(stoi(R1));  // Convert address to 8-bit binary
-    binaryCode += " " + address;
-    
-} else if (opcode == "READ" || opcode == "WRITE") {
-    // For READ and WRITE, use one register (e.g., "WRITE R1")
-    // Format: [opcode] [register]
-    string reg = registerMap[R1];
-    binaryCode += " " + reg;
-}
-
+    // Handle ADD, SUB (two registers)
+    if (opcode == "ADD" || opcode == "SUB") {
+        iss >> R1 >> R2;
+        if (!isRegister(R1) || !isRegister(R2)) {
+            return "Error: Invalid register in operands";
+        }
+        string reg1 = registerMap[R1];
+        string reg2 = registerMap[R2];
+        binaryCode += " " + reg1 + " " + reg2;
+    }
+    // Handle LOAD, STORE (one register and one address)
+    else if (opcode == "LOAD" || opcode == "STORE") {
+        iss >> R1 >> R2;
+        if (!isRegister(R1)) {
+            return "Error: Invalid register in operand";
+        }
+        string reg = registerMap[R1];
+        string address = toBinary8(stoi(R2));  // Convert address to 8-bit binary
+        binaryCode += " " + reg + " " + address;
+    }
+    // Handle JUMP, JZ, JNZ (one address or register)
+    else if (opcode == "JUMP" || opcode == "JZ" || opcode == "JNZ") {
+        iss >> R1;
+        string address;
+        // For JUMP, JZ, and JNZ, the operand could be a register or an address
+        if (isRegister(R1)) {
+            address = registerMap[R1];
+        } else {
+            address = toBinary8(stoi(R1));  // Convert address to 8-bit binary
+        }
+        binaryCode += " " + address;
+    }
+    // Handle READ and WRITE (one register)
+    else if (opcode == "READ" || opcode == "WRITE") {
+        iss >> R1;
+        if (!isRegister(R1)) {
+            return "Error: Invalid register in operand";
+        }
+        string reg = registerMap[R1];
+        binaryCode += " " + reg;
+    }
 
     return binaryCode;
 }
