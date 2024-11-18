@@ -78,13 +78,13 @@ string assemble(const string &instruction) {
     else if (opcode == "JUMP" || opcode == "JZ" || opcode == "JNZ") {
         iss >> R1;
         string address;
-        // For JUMP, JZ, and JNZ, the operand could be a register or an address
-        if (isRegister(R1)) {
-            address = registerMap[R1];
-        } else {
-            address = toBinary8(stoi(R1));  // Convert address to 8-bit binary
-        }
-        binaryCode += " " + address;
+                    // For JUMP, JZ, and JNZ, the operand could be a register or an address
+                    if (isRegister(R1)) {
+                        address = registerMap[R1];
+                    } else {
+                        address = toBinary8(stoi(R1));  // Convert address to 8-bit binary
+                    }
+                    binaryCode += " " + address;
     }
     // Handle READ and WRITE (one register)
     else if (opcode == "READ" || opcode == "WRITE") {
