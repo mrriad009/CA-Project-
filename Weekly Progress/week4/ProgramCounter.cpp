@@ -12,7 +12,7 @@ public:
         pc++;
         cout << "Program Counter: Incremented to " << pc << endl;
     }
-
+                    // Sets the program counter to a specified address.
     void set(int address) {
         pc = address;
         cout << "Program Counter: Set to " << pc << endl;

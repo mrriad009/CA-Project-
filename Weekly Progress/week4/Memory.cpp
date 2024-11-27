@@ -2,15 +2,17 @@
 #define MEMORY_H
 
 #include <iostream>
-#include <vector>
+#include <vector>  // provide & manage dynamic array 
 using namespace std;
 
 class Memory {
 public:
     vector<int> memory;
 
-    Memory(int size) : memory(size, 0) {}
+    Memory(int size) : memory(size, 0) {}  //Initializes the memory with a specified size, setting all values to 0
 
+   //storing value to specific memeroy addrs
+   
     void store(int address, int value) {
         if (address < memory.size()) {
             memory[address] = value;
@@ -19,6 +21,7 @@ public:
             cout << "Memory Error: Address " << address << " out of bounds!" << endl;
         }
     }
+//for lead value from  memory addrs
 
     int load(int address) {
         if (address < memory.size()) {
