@@ -8,7 +8,7 @@ g++ ALU.cpp Register.cpp ProgramCounter.cpp Memory.cpp Assembler.cpp main.cpp -o
 
 ```bash
 echo "Hello, World!"
-
+```
 
 # Virtual CPU Emulator Documentation
 
