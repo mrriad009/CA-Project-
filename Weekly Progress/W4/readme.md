@@ -38,5 +38,23 @@ public:
 };
 ```
 
-Register
-The Register stores intermediate results during the program's execution. In this program, we use two registers (regA and regB), which store results from operations and can be updated with new values.
+**Key Operations**
+- ADD: Adds operand1 and operand2 and returns the result.
+- SUB: Subtracts operand2 from operand1 and returns the result.
+- MOV: Copies the value of operand1 to the result
+
+**Register**
+A Register is a small storage area used to hold data temporarily. The Virtual CPU Emulator uses two general-purpose registers: Register A and Register B. The value in a register can be set using the set method and retrieved with the get method.
+
+```
+void Register::set(int v) { 
+    value = v;  // Store the value in the register
+}
+
+int Register::get() const { 
+    return value;  // Retrieve the value from the register
+}
+
+```
+
+
