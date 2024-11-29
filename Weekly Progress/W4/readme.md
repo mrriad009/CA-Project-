@@ -25,8 +25,19 @@ This documentation explains the key components of the Virtual CPU Emulator, desc
 
 ---
 
-## ALU (Arithmetic Logic Unit)
 
-The **ALU** is responsible for performing arithmetic and logical operations. In our emulator, it handles basic operations like `ADD`, `SUB`, and `MOV`. The ALU executes instructions by taking two operands and performing the requested operation.
+### 1. **ALU (Arithmetic Logic Unit)**
+
+The **ALU** performs basic arithmetic and logical operations. In this program, the ALU handles the operations `ADD`, `SUB`, and `MOV`. It processes the operands and returns the result.
+
+#### Key Code
+```cpp
+class ALU {
+public:
+    int execute(const std::string& instruction, int operand1, int operand2);
+};
 
 
+
+Register
+The Register stores intermediate results during the program's execution. In this program, we use two registers (regA and regB), which store results from operations and can be updated with new values.
