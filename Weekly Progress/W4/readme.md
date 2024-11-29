@@ -36,8 +36,7 @@ class ALU {
 public:
     int execute(const std::string& instruction, int operand1, int operand2);
 };
-
-
+```
 
 Register
 The Register stores intermediate results during the program's execution. In this program, we use two registers (regA and regB), which store results from operations and can be updated with new values.
