@@ -244,7 +244,7 @@ Final Program Counter: 2 (00000010)
 
 2. **Navigate to the project directory**:
    ```bash
-   cd CA-Project/Week3
+   cd CA-Project/W3 Final
    ```
 
 3. **Compile the code**:
