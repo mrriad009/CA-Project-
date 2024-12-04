@@ -25,7 +25,7 @@ public:
 #endif
 ```
 **ALU Implementation (ALU.cpp)**
-The execute() method performs different operations based on the instruction. If the instruction is "MOV", it moves the value of operand1 into the result. If the instruction is "ADD", it adds operand1 and operand2. For "SUB", it subtracts operand2 from operand1
+The **execute()** method performs different operations based on the instruction. If the instruction is "MOV", it moves the value of operand1 into the result. If the instruction is "ADD", it adds operand1 and operand2. For "SUB", it subtracts operand2 from operand1
 ```cpp
 #include "ALU.h"
 
@@ -148,7 +148,7 @@ public:
 #endif
 ```
 ## Memory Implementation (Memory.cpp)
-The storeData(), loadData(), storeStack(), loadStack(), storeHeap(), and loadHeap() methods handle storing and retrieving data from their respective segments. printMemory() displays all memory contents for debugging purposes.
+The **storeData(), loadData(), storeStack(), loadStack(), storeHeap(), and loadHeap() methods** handle storing and retrieving data from their respective segments. printMemory() displays all memory contents for debugging purposes.
 ```cpp
 #include "Memory.h"
 
@@ -191,6 +191,15 @@ void Memory::printMemory() const {
     std::cout << std::endl;
 }
 ```
+
+- **Memory Initialization:**
+We store data in the data segment, stack segment, and heap segment.
+- **Memory Operations:**
+The program loads operands from the data segment for the instructions and executes them using the ALU.
+- **Memory Display:**
+The memory.printMemory() function is used to display the contents of all memory segments at the beginning of the program.
+
+
 ## Assembler
 The Assembler converts assembly language instructions into machine code (binary). This project uses a simple method that converts a few predefined instructions (MOV, ADD, SUB) into binary opcodes.
 
@@ -226,6 +235,9 @@ std::string Assembler::assemblerToMachineCode(const std::string& instruction) {
     }
 }
 ```
+
+
+
 ## **Main program** :
 
 - Initialize Components: At the start, we initialize the following components of the CPU simulator:
@@ -259,47 +271,6 @@ vector<int> operands2 = {1, 2, 3};
    - The operands1 and operands2 vectors contain the memory addresses that will be used as operands for the instructions.
 
 
-Explanation:
-Memory Class:
-
-The Memory class contains three memory segments: dataMemory, stackMemory, and heapMemory. Each segment is represented by an array of std::bitset<8>, which stores 8-bit binary values. These represent memory addresses holding values in binary format.
-The constructor initializes the memory segments with some predefined values (converted to binary using std::bitset).
-Store and Load Functions:
-
-store(int address, const std::bitset<8>& value, const std::string& segment):
-Stores the binary value at the specified address in the given memory segment.
-The segment can be "data", "stack", or "heap".
-load(int address, const std::string& segment):
-Loads the binary value from the specified address in the given segment and returns it as a std::bitset<8>.
-Print Memory Contents (Optional Debugging):
-
-printMemoryContents() prints out the contents of all three memory segments (data, stack, heap), showing the binary values stored at each address.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Explanation:
-Memory Initialization:
-We store data in the data segment, stack segment, and heap segment.
-Memory Operations:
-The program loads operands from the data segment for the instructions and executes them using the ALU.
-Memory Display:
-The memory.printMemory() function is used to display the contents of all memory segments at the beginning of the program.
 
 ## Sample Output 
 ```
