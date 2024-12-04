@@ -42,25 +42,6 @@ This project simulates a basic Virtual CPU and demonstrates the **Fetch-Decode-E
 - **C++ Compiler** (e.g., GCC, Clang)
 - **C++11** or later standard support
 
-### Steps to Install
-
-1. Clone the repository:
-    ```bash
-    git clone https://github.com/your-username/virtual-cpu-emulator.git
-    cd virtual-cpu-emulator
-    ```
-
-2. Compile the project:
-    ```bash
-    g++ main.cpp -o virtual_cpu_emulator -std=c++11
-    ```
-
-3. Run the program:
-    ```bash
-    ./virtual_cpu_emulator
-    ```
-
----
 
 ## Usage
 
@@ -76,22 +57,6 @@ Once the program is running, it simulates the execution of assembly-like instruc
 - Instruction fetch, decode, and execution results
 - Final register values
 
----
-
-## Project Structure
-
-```plaintext
-/virtual-cpu-emulator
-├── main.cpp             # Entry point to the program and CPU simulation
-├── include
-│   ├── ALU.h            # ALU component definition
-│   ├── Assembler.h      # Assembler component definition
-│   ├── Memory.h         # Memory component definition
-│   ├── ProgramCounter.h # Program Counter component definition
-│   └── Register.h       # Register component definition
-├── README.md            # This documentation
-└── LICENSE              # Project license file
-```
 
 ## Components
 
