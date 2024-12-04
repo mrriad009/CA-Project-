@@ -230,7 +230,7 @@ public:
 
 2. **Navigate to the project directory**:
    ```bash
-   cd CA-Project/Weekly Progress/Week5
+   cd CA-Project/Weekly Progress/W5
    ```
 
 3. **Compile the code**:
