@@ -22,17 +22,20 @@ This project simulates a basic Virtual CPU and demonstrates the **Fetch-Decode-E
 
 ## Table of Contents
 
-1. [Features](#features)
-2. [Installation](#installation)
-3. [Usage](#usage)
-4. [Project Structure](#project-structure)
-5. [Components](#components)
-   - [ALU](#alu)
-   - [Program Counter](#program-counter)
-   - [Registers](#registers)
-   - [Memory](#memory)
-   - [Assembler](#assembler)
-6. [License](#license)
+- [Virtual CPU Emulator](#virtual-cpu-emulator)
+  - [Features](#features)
+  - [Table of Contents](#table-of-contents)
+  - [Installation](#installation)
+    - [Prerequisites](#prerequisites)
+  - [Usage](#usage)
+  - [Components](#components)
+- [ALU (Arithmetic Logic Unit)](#alu-arithmetic-logic-unit)
+- [Register](#register)
+  - [Memory](#memory)
+  - [Program Counter](#program-counter)
+  - [Assembler](#assembler)
+  - [Compilation and Execution](#compilation-and-execution)
+    - [Steps to Run the Code:](#steps-to-run-the-code)
 
 ---
 
@@ -66,8 +69,6 @@ The **Arithmetic Logic Unit (ALU)** is responsible for performing basic arithmet
 
 ---
 
-## Code
-
 ```cpp
 #ifndef ALU_H
 #define ALU_H
@@ -94,8 +95,6 @@ Explanation
 Registers temporarily store data during the execution of instructions. They are general-purpose storage units used to hold values for computations.
 
 ---
-
-## Code
 
 ```cpp
 #ifndef REGISTER_H
@@ -134,8 +133,8 @@ public:
 
 #endif
 ```
-- store(int address, int value): Saves the given value at the specified memory address.
-- load(int address): Fetches the value from the specified memory address.
+- **store**(int address, int value): Saves the given value at the specified memory address.
+- **load**(int address): Fetches the value from the specified memory address.
 
 ## Program Counter
 
@@ -157,7 +156,7 @@ public:
 
 #endif
 ```
-- increment(): Advances the counter to the next instruction address.
+- **increment()**: Advances the counter to the next instruction address.
 - set(int address): Sets the counter to a specific instruction address.
 - get(): Retrieves the current value of the program counter.
 
