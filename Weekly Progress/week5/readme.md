@@ -218,7 +218,7 @@ public:
 #endif
 ```
 ## Assembler Implementation (Assembler.cpp)
-The assemblerToMachineCode() method converts a simple assembly instruction into its corresponding binary opcode.
+The **assemblerToMachineCode()** method converts a simple assembly instruction into its corresponding binary opcode.
 
 ```cpp
 #include "Assembler.h"
@@ -258,7 +258,7 @@ memory.storeHeap(0, 15);  // Heap Segment: Store value 15 at address 0
 ```
 This simulates loading some values into the data, stack, and heap memory segments. These values will be used later when fetching and decoding instructions
 
-The printMemory() method displays the current state of all memory segments (data, stack, and heap). It helps verify that the memory is correctly initialized.
+The **printMemory()** method displays the current state of all memory segments (data, stack, and heap). It helps verify that the memory is correctly initialized.
 
 **Start the Fetch-Decode-Execute Cycle**
 The program begins the core CPU simulation loop:
