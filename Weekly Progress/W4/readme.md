@@ -123,8 +123,6 @@ Explanation
 
 ---
 
-### **Register.md**
-
 
 # Register
 
@@ -174,7 +172,8 @@ public:
 - store(int address, int value): Saves the given value at the specified memory address.
 - load(int address): Fetches the value from the specified memory address.
 
-## rogram Counter
+## Program Counter
+
 The Program Counter (PC) keeps track of the current instruction address and increments to fetch the next one during the Fetch-Decode-Execute cycle.
 
 ```cpp
@@ -196,3 +195,25 @@ public:
 - increment(): Advances the counter to the next instruction address.
 - set(int address): Sets the counter to a specific instruction address.
 - get(): Retrieves the current value of the program counter.
+
+## Assembler
+The Assembler component converts assembly instructions into machine-readable binary codes.
+
+```cpp
+#ifndef ASSEMBLER_H
+#define ASSEMBLER_H
+
+#include <string>
+#include <bitset>  // for converting to binary
+
+class Assembler {
+public:
+    static std::string assemblerToMachineCode(const std::string& instruction);
+};
+
+#endif
+```
+- assemblerToMachineCode(const std::string& instruction): Converts human-readable assembly instructions (ADD, MOV, SUB) into machine-readable binary codes.
+    ADD: 0b00000000
+    SUB: 0b00000001
+    MOV: 0b00000010
