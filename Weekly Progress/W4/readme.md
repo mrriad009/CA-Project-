@@ -217,3 +217,28 @@ public:
     ADD: 0b00000000
     SUB: 0b00000001
     MOV: 0b00000010
+
+
+## Compilation and Execution
+
+### Steps to Run the Code:
+
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/your-username/CA-Project.git
+   ```
+
+2. **Navigate to the project directory**:
+   ```bash
+   cd CA-Project/Weekly Progress/Week5
+   ```
+
+3. **Compile the code**:
+   ```bash
+   g++ -o cpu_simulation main.cpp ALU.cpp Assembler.cpp Register.cpp ProgramCounter.cpp
+   ```
+
+4. **Run the program**:
+   ```bash
+   ./cpu_simulation
+   ```
