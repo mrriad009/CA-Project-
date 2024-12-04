@@ -148,8 +148,8 @@ void ProgramCounter::increment() {
 Purpose: This file implements the functions declared in ProgramCounter.h.
 Logic:
 The increment function increases the PC by 1, advancing the program flow.
-The set function sets the PC to a given address.
-The get function returns the current value of the PC.
+- The set function sets the PC to a given address.
+- The get function returns the current value of the PC.
 
 ## Assembler
 The **Assembler** converts assembly instructions (like `ADD` and `SUB`) into machine code (binary format) that can be executed by the CPU.
@@ -190,9 +190,9 @@ std::string Assembler::assemblerToMachineCode(const std::string& instruction) {
 ```
 Purpose: This file implements the assemblerToMachineCode function, which returns the 4-bit binary representation of an assembler instruction.
 Logic:
-For the ADD instruction, the machine code 0000 is returned.
-For the SUB instruction, the machine code 0001 is returned.
-If an unsupported instruction is passed, it returns "Unknown".
+- For the ADD instruction, the machine code 0000 is returned.
+- For the SUB instruction, the machine code 0001 is returned.
+- If an unsupported instruction is passed, it returns "Unknown".
 
 ## Main Program :
 
@@ -200,10 +200,10 @@ Purpose: This file demonstrates how all components (ALU, Registers, ProgramCount
 Summary:
 Each component is designed to perform a specific function within the Virtual CPU Emulator project:
 
-ALU performs basic arithmetic operations.
-Registers store temporary data for the CPU.
-ProgramCounter tracks the execution flow.
-Assembler translates assembler instructions into machine code.
+- ALU performs basic arithmetic operations.
+- Registers store temporary data for the CPU.
+- ProgramCounter tracks the execution flow.
+- Assembler translates assembler instructions into machine code.
 
 
 ## Testing and Example Output
