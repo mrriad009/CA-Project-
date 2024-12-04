@@ -1,4 +1,4 @@
-# week5
+# WEEK 5
 
 This project simulates a basic CPU with components like memory management, an Arithmetic Logic Unit (ALU), registers, a program counter (PC), and an assembler to convert assembly instructions into machine code. It implements a simple fetch-decode-execute cycle to simulate how a CPU would execute instructions.
 
@@ -226,16 +226,16 @@ std::string Assembler::assemblerToMachineCode(const std::string& instruction) {
     }
 }
 ```
-main program :
+## **Main program** :
 
-- Initialize Components:
-    At the start, we initialize the following components of the CPU simulator:
-    ```
-    ALU alu;
-    Register regA, regB;
-    ProgramCounter pc;
-    Memory memory;
-    ```
+- Initialize Components: At the start, we initialize the following components of the CPU simulator:
+
+```
+ALU alu;
+Register regA, regB;
+ProgramCounter pc;
+Memory memory;
+```
 - Store Initial Data in Memory
     -The memory segments are initialized with specific values:
 ```cpp
@@ -248,15 +248,15 @@ This simulates loading some values into the data, stack, and heap memory segment
 
 The printMemory() method displays the current state of all memory segments (data, stack, and heap). It helps verify that the memory is correctly initialized.
 
-- Start the Fetch-Decode-Execute Cycle
+**Start the Fetch-Decode-Execute Cycle**
 The program begins the core CPU simulation loop:
 ```cpp
 vector<string> instructions = {"ADD", "SUB", "MOV"};
 vector<int> operands1 = {0, 1, 2};
 vector<int> operands2 = {1, 2, 3};
 ```
- - The instructions vector holds the instructions to be executed: "ADD", "SUB", and "MOV".
- - The operands1 and operands2 vectors contain the memory addresses that will be used as operands for the instructions.
+   - The instructions vector holds the instructions to be executed: "ADD", "SUB", and "MOV".
+   - The operands1 and operands2 vectors contain the memory addresses that will be used as operands for the instructions.
 
 
 Explanation:
