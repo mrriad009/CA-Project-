@@ -43,7 +43,7 @@ public:
 - SUB: Subtracts operand2 from operand1 and returns the result.
 - MOV: Copies the value of operand1 to the result
 
-**Register**
+**### 1.Register**
 A Register is a small storage area used to hold data temporarily. The Virtual CPU Emulator uses two general-purpose registers: Register A and Register B. The value in a register can be set using the set method and retrieved with the get method.
 
 ```
