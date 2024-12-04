@@ -179,9 +179,9 @@ public:
 #endif
 ```
 - assemblerToMachineCode(const std::string& instruction): Converts human-readable assembly instructions (ADD, MOV, SUB) into machine-readable binary codes.
-    ADD: 0b00000000
-    SUB: 0b00000001
-    MOV: 0b00000010
+    - ADD: 0b00000000
+    - SUB: 0b00000001
+    - MOV: 0b00000010
 
 
 ## Compilation and Execution
