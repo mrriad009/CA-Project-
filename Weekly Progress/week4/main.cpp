@@ -1,48 +1,40 @@
+// main.cpp
+#include "CPU.h"
+#include "Assembler.h"
 #include <iostream>
-#include "ALU.h"
-#include "Memory.h"
-#include "Register.h"
-#include "ProgramCounter.h"
-using namespace std;
+#include <string>
 
 int main() {
-    ALU alu;
-    Memory memory(10);  // Initialize memory with 10 slots
-    Register regA, regB;  // General-purpose registers
-    ProgramCounter pc;    // Program counter to track instruction addresses
+    CPU cpu;
 
-    // Load sample instructions into memory
-    memory.store(0, 10);  // Load value 10 into memory address 0
-    memory.store(1, 20);  // Load value 20 into memory address 1
-    memory.store(2, 1);   // Store operation code (e.g., ADD) at address 2
-    memory.store(3, -1);  // Termination signal at address 3
-
-
-    // Fetch-Decode-Execute Cycle
-    cout<<"------------------------------------------"<<endl;
-    cout << "Starting Fetch-Decode-Execute Cycle..." << endl;
-    cout<<"------------------------------------------"<<endl;
-
-    while (true) {
-        int instruction = memory.load(pc.get());            // Fetch
-        pc.increment();
-
-        if (instruction == -1) {                            // Terminate if -1
-            cout << "Terminating program..." << endl;
-            break;
-        }
-
-        // Decode and Execute
-        if (pc.get() == 1) {                                    // Assume instruction 1 is to load regA
-            regA.set(instruction);
-        } else if (pc.get() == 2) {                             // Assume instruction 2 is to load regB
-            regB.set(instruction);
-        } else if (pc.get() == 3) {                             // Assume instruction 3 is to perform ADD
-            int result = alu.add(regA.get(), regB.get());
-            cout << "Result of addition: " << result << endl;
-            cout<<endl;
-        }
+    // Get assembly code input from the user
+    std::string assemblyCode;
+    std::cout << "Enter your assembly code (end with an empty line):" << std::endl;
+    std::string line;
+    while (std::getline(std::cin, line) && !line.empty()) {
+        assemblyCode += line + "\n";
     }
+
+    // Display the entered assembly code
+    std::cout << "\n[Input Assembly Code]:\n" << assemblyCode << std::endl;
+
+    // Convert assembly to machine code
+    std::cout << "[Assembling Code...]\n";
+    std::vector<uint8_t> machineCode = assemble(assemblyCode);
+
+    // Display the generated machine code
+    std::cout << "[Generated Machine Code]:\n";
+    for (uint8_t code : machineCode) {
+        std::cout << std::bitset<8>(code) << " ";
+    }
+    std::cout << "\n";
+
+    // Load the program into the CPU
+    cpu.loadProgram(machineCode);
+
+    // Execute the program
+    std::cout << "\n[Starting Program Execution...]\n";
+    cpu.executeProgram();
 
     return 0;
 }

@@ -1,37 +1,40 @@
+// main.cpp
+#include "CPU.h"
+#include "Assembler.h"
 #include <iostream>
-#include "ALU.h"
-#include "Register.h"
-#include "ProgramCounter.h"
-
-using namespace std;
+#include <string>
 
 int main() {
-    // Initialize CPU components
-    ALU alu;
-    Register regA, regB;
-    ProgramCounter pc;
+    CPU cpu;
 
-    // Demonstrate ALU functionality
-    cout << "Testing ALU -------:" << endl;
-    int sum = alu.add(10, 20);
-    cout << "10 + 20 = " << sum << endl;
+    // Get assembly code input from the user
+    std::string assemblyCode;
+    std::cout << "Enter your assembly code (end with an empty line):" << std::endl;
+    std::string line;
+    while (std::getline(std::cin, line) && !line.empty()) {
+        assemblyCode += line + "\n";
+    }
 
-    int difference = alu.sub(30, 15);
-    cout << "30 - 15 = " << difference << endl;
+    // Display the entered assembly code
+    std::cout << "\n[Input Assembly Code]:\n" << assemblyCode << std::endl;
 
-    // Demonstrate Register functionality
-    cout << "\nTesting Registers --------:" << endl;
-    regA.set(42);
-    regB.set(84);
-    cout << "Register A value: " << regA.get() << endl;
-    cout << "Register B value: " << regB.get() << endl;
+    // Convert assembly to machine code
+    std::cout << "[Assembling Code...]\n";
+    std::vector<uint8_t> machineCode = assemble(assemblyCode);
 
-    // Demonstrate Program Counter functionality
-    cout << "\nTesting Program Counter --------:" << endl;
-    pc.set(5);
-    cout << "Program Counter set to: " << pc.get() << endl;
-    pc.increment();
-    cout << "Program Counter incremented to: " << pc.get() << endl;
+    // Display the generated machine code
+    std::cout << "[Generated Machine Code]:\n";
+    for (uint8_t code : machineCode) {
+        std::cout << std::bitset<8>(code) << " ";
+    }
+    std::cout << "\n";
+
+    // Load the program into the CPU
+    cpu.loadProgram(machineCode);
+
+    // Execute the program
+    std::cout << "\n[Starting Program Execution...]\n";
+    cpu.executeProgram();
 
     return 0;
 }

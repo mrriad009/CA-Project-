@@ -2,18 +2,15 @@
 #define ALU_H
 
 #include <iostream>
-using namespace std;
 
 class ALU {
 public:
-    int add(int a, int b) {
-        cout << "ALU: Adding " << a << " + " << b << " = " << (a + b) << endl;
-        return a + b;
-    }
-
-    int subtract(int a, int b) {
-        cout << "ALU: Subtracting " << a << " - " << b << " = " << (a - b) << endl;
-        return a - b;
+    uint8_t performOperation(const std::string& opcode, uint8_t operand1, uint8_t operand2) {
+        if (opcode == "ADD") return operand1 + operand2;
+        if (opcode == "SUB") return operand1 - operand2;
+        if (opcode == "LOAD") return operand2; // LOAD directly assigns
+        if (opcode == "STORE") return operand1; // STORE does not modify
+        return 0; // Default for unknown instructions
     }
 };
 
