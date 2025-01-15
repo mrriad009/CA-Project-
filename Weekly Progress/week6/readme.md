@@ -107,53 +107,56 @@ OUT R0
 
 ---
 
-## **Example Run**
+## **Example Run and Output Explanation**
+
 ### Input:
 ```assembly
 IN R0
 OUT R0
 ```
 
-### Output:
-```plaintext
-[Input Assembly Code]:
-IN R0
-OUT R0
+### Detailed Execution:
+1. **Assembly Code Input**:
+   ```plaintext
+   IN R0
+   OUT R0
+   ```
 
-[Assembling Code...]
-[Generated Machine Code]:
-10000000 10100000 
+2. **Assembling Code**:
+   - `IN R0` -> Machine Code: `10000000`
+   - `OUT R0` -> Machine Code: `10100000`
+   ```plaintext
+   [Assembling Code...]
+   [Generated Machine Code]:
+   10000000 10100000
+   ```
 
-[Loading Program into Memory]
+3. **Program Execution**:
+   - Fetch, Decode, and Execute cycle:
+     - **Cycle 1**:
+       - **Fetch**: Reads instruction `10000000`.
+       - **Decode**: Opcode `100` (IN), Register `R0`.
+       - **Execute**: Reads `0b01000001` from the keyboard into `R0`.
+       - **Output**:
+         ```plaintext
+         [Keyboard] Simulated key press: 01000001
+         [CPU] Updated R0: 01000001
+         ```
 
-=== Starting Program Execution ===
+     - **Cycle 2**:
+       - **Fetch**: Reads instruction `10100000`.
+       - **Decode**: Opcode `101` (OUT), Register `R0`.
+       - **Execute**: Outputs `0b01000001` from `R0` to the display.
+       - **Output**:
+         ```plaintext
+         [Display] Output: 01000001
+         ```
 
---- Fetch-Decode-Execute Cycle ---
-[CPU] Fetch: Instruction = 10000000
-[CPU] Decode: Opcode = 100, Reg1 = R0
-[Keyboard] Simulated key press: 01000001
-[CPU] Updated R0: 01000001
-
---- Fetch-Decode-Execute Cycle ---
-[CPU] Fetch: Instruction = 10100000
-[CPU] Decode: Opcode = 101, Reg1 = R0
-[Display] Output: 01000001
-
-[Execution Complete]
-```
+4. **Final Output**:
+   ```plaintext
+   [Execution Complete]
+   ```
 
 ---
 
-## **Usage Instructions**
-1. Compile the program:
-   ```bash
-   g++ main.cpp -o CPUEmulator
-   ```
-2. Run the executable:
-   ```bash
-   ./CPUEmulator
-   ```
-3. Enter assembly code with I/O instructions.
-
----
 
