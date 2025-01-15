@@ -4,7 +4,7 @@
 #include <string>
 
 int main() {
-    CPU cpu(128); // Initialize CPU with 128 bytes of memory
+    CPU cpu;
 
     std::string assemblyCode;
     std::cout << "Enter your assembly code (end with an empty line):" << std::endl;
@@ -15,6 +15,7 @@ int main() {
 
     std::cout << "\n[Input Assembly Code]:\n" << assemblyCode << std::endl;
 
+    std::cout << "[Assembling Code...]\n";
     std::vector<uint8_t> machineCode = assemble(assemblyCode);
 
     std::cout << "[Generated Machine Code]:\n";
@@ -24,6 +25,8 @@ int main() {
     std::cout << "\n";
 
     cpu.loadProgram(machineCode);
+
+    std::cout << "\n[Starting Program Execution...]\n";
     cpu.executeProgram();
 
     return 0;

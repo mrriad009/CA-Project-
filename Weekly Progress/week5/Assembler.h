@@ -16,16 +16,8 @@ std::vector<uint8_t> assemble(const std::string& assemblyCode) {
         std::istringstream linestream(line);
         std::string opcode, reg1, reg2;
         linestream >> opcode >> reg1 >> reg2;
-
-        uint8_t opcodeNum = (opcode == "ADD" ? 0b00 : 
-                             opcode == "SUB" ? 0b01 : 
-                             opcode == "LOAD" ? 0b10 : 
-                             opcode == "STORE" ? 0b11 : 
-                             opcode == "HALT" ? 0b100 : 
-                             0b000);
-
-        uint8_t machineInstruction = (opcode == "HALT") ? (opcodeNum << 6) : 
-            (opcodeNum << 6) | (registers[reg1] << 3) | registers[reg2];
+        uint8_t opcodeNum = (opcode == "ADD" ? 0b00 : opcode == "SUB" ? 0b01 : opcode == "LOAD" ? 0b10 : opcode == "STORE" ? 0b11 : 0b00);
+        uint8_t machineInstruction = (opcodeNum << 6) | (registers[reg1] << 3) | registers[reg2];
         machineCode.push_back(machineInstruction);
     }
 

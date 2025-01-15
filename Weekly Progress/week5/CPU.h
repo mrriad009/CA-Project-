@@ -1,19 +1,20 @@
 #ifndef CPU_H
 #define CPU_H
 
-#include "Registers.h"
 #include "ALU.h"
+#include "Registers.h"
 #include "Memory.h"
-#include <vector>
 #include <iostream>
 #include <bitset>
-#include <string>
 
 class CPU {
 public:
-    CPU(size_t memorySize) : programCounter(0), memory(memorySize), halted(false) {}
+    CPU() : programCounter(0b00000000), memory(16) { // 16 bytes memory
+        memory.segmentInfo(); // Display memory segmentation details
+    }
 
     void loadProgram(const std::vector<uint8_t>& program) {
+        std::cout << "[Loading Program into Memory]\n";
         for (size_t i = 0; i < program.size(); ++i) {
             memory.write(i, program[i]);
         }
@@ -22,19 +23,18 @@ public:
     void executeProgram() {
         std::cout << "\n=== Starting Program Execution ===\n";
 
-        while (programCounter < memory.size() && !halted) {
+        while (programCounter < 16) {
             std::cout << "\n--- Fetch-Decode-Execute Cycle ---\n";
 
-            uint8_t instruction = fetch();
+            // Fetch
+            uint8_t instruction = memory.read(programCounter++);
+
+            // Decode
             uint8_t opcode, reg1, reg2;
             decode(instruction, opcode, reg1, reg2);
+
+            // Execute
             execute(opcode, reg1, reg2);
-
-            std::cout << "\nCurrent Register States: ";
-            registers.display();
-
-            std::cout << "\nCurrent Memory State: ";
-            memory.display();
         }
 
         std::cout << "\n[Execution Complete]\n";
@@ -42,53 +42,42 @@ public:
 
 private:
     uint8_t programCounter;
-    Memory memory;
+    Memory memory; // Memory module instance
     Registers registers;
     ALU alu;
-    bool halted;
-
-    uint8_t fetch() {
-        uint8_t instruction = memory.read(programCounter);
-        std::cout << "Fetching instruction at address " << static_cast<int>(programCounter)
-                  << ": " << static_cast<int>(instruction) << "\n";
-        programCounter++;
-        return instruction;
-    }
 
     void decode(uint8_t instruction, uint8_t& opcode, uint8_t& reg1, uint8_t& reg2) {
         opcode = (instruction >> 6) & 0b00000011;
         reg1 = (instruction >> 3) & 0b00000111;
         reg2 = instruction & 0b00000111;
 
-        std::string opcodeStr = getOpcodeString(opcode);
-        std::cout << "Decoding instruction: " << static_cast<int>(instruction)
-                  << " as (" << opcodeStr << " R" << reg1 << " R" << reg2 << ")\n";
+        std::cout << "[Decode] Opcode: " << std::bitset<2>(opcode)
+                  << ", Reg1: R" << reg1
+                  << ", Reg2: R" << reg2 << "\n";
     }
 
     void execute(uint8_t opcode, uint8_t reg1, uint8_t reg2) {
         std::string opcodeStr = getOpcodeString(opcode);
 
-        if (opcodeStr == "HALT") {
-            halted = true;
-            std::cout << "HALT instruction encountered. Stopping execution.\n";
-            return;
-        }
-
         uint8_t operand1 = registers.get("R" + std::to_string(reg1));
         uint8_t operand2 = registers.get("R" + std::to_string(reg2));
+        uint8_t result;
 
-        std::cout << "Operands: operand1 = " << static_cast<int>(operand1)
-                  << ", operand2 = " << static_cast<int>(operand2) << "\n";
-
-        uint8_t result = alu.performOperation(opcodeStr, operand1, operand2);
-
-        if (opcodeStr == "STORE") {
-            memory.write(operand2, operand1);
-            std::cout << "Stored value " << static_cast<int>(operand1)
-                      << " at memory address " << static_cast<int>(operand2) << "\n";
+        if (opcodeStr == "LOAD") {
+            result = memory.read(operand2); // Load from memory
+        } else if (opcodeStr == "STORE") {
+            memory.write(operand2, operand1); // Store to memory
+            result = operand1; // No modification to register
         } else {
-            registers.set("R" + std::to_string(reg1), result);
+            result = alu.performOperation(opcodeStr, operand1, operand2);
         }
+
+        registers.set("R" + std::to_string(reg1), result);
+
+        std::cout << "[Execute] " << opcodeStr
+                  << " R" << reg1 << ", R" << reg2
+                  << " => Updated R" << reg1 << ": " << std::bitset<8>(result) << "\n";
+        registers.display();
     }
 
     std::string getOpcodeString(uint8_t opcode) {
@@ -97,7 +86,6 @@ private:
             case 0b01: return "SUB";
             case 0b10: return "LOAD";
             case 0b11: return "STORE";
-            case 0b100: return "HALT";
             default: return "UNKNOWN";
         }
     }
