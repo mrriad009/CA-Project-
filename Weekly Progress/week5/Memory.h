@@ -29,15 +29,15 @@ public:
                   << ", Data: " << std::bitset<8>(value) << "\n";
     }
 
-    void segmentInfo() {
-        size_t segmentSize = memory.size() / 4; // Dividing memory into 4 segments
-        std::cout << "=== Memory Segmentation ===\n";
-        std::cout << "Code Segment: 0 - " << segmentSize - 1 << "\n";
-        std::cout << "Data Segment: " << segmentSize << " - " << (2 * segmentSize) - 1 << "\n";
-        std::cout << "Stack Segment: " << (2 * segmentSize) << " - " << (3 * segmentSize) - 1 << "\n";
-        std::cout << "Heap Segment: " << (3 * segmentSize) << " - " << memory.size() - 1 << "\n";
-        std::cout << "===========================\n";
-    }
+void segmentInfo() {
+    std::cout << "=== Memory Segmentation ===\n";
+    std::cout << "Code Segment: 0x00 - 0x03\n";
+    std::cout << "Data Segment: 0x04 - 0x07\n";
+    std::cout << "Stack Segment: 0x08 - 0x0B\n";
+    std::cout << "Heap Segment: 0x0C - 0x0F\n";
+    std::cout << "===========================\n";
+}
+
 
 private:
     std::vector<uint8_t> memory;

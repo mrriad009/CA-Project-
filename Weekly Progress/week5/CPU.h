@@ -46,39 +46,44 @@ private:
     Registers registers;
     ALU alu;
 
-    void decode(uint8_t instruction, uint8_t& opcode, uint8_t& reg1, uint8_t& reg2) {
-        opcode = (instruction >> 6) & 0b00000011;
-        reg1 = (instruction >> 3) & 0b00000111;
-        reg2 = instruction & 0b00000111;
+void decode(uint8_t instruction, uint8_t& opcode, uint8_t& reg1, uint8_t& reg2) {
+    opcode = (instruction >> 6) & 0b00000011; // Extract the opcode (2 bits)
+    reg1 = (instruction >> 3) & 0b00000111;   // Extract the first register (3 bits)
+    reg2 = instruction & 0b00000111;          // Extract the second register (3 bits)
 
-        std::cout << "[Decode] Opcode: " << std::bitset<2>(opcode)
-                  << ", Reg1: R" << reg1
-                  << ", Reg2: R" << reg2 << "\n";
+    std::cout << "[Decode] Opcode: " << std::bitset<2>(opcode)
+              << ", Reg1: R" << static_cast<int>(reg1) // Print register index as number
+              << ", Reg2: R" << static_cast<int>(reg2) << "\n";
+}
+
+
+void execute(uint8_t opcode, uint8_t reg1, uint8_t reg2) {
+    std::string opcodeStr = getOpcodeString(opcode);
+
+    std::string reg1Name = "R" + std::to_string(reg1);
+    std::string reg2Name = "R" + std::to_string(reg2);
+
+    uint8_t operand1 = registers.get(reg1Name);
+    uint8_t operand2 = registers.get(reg2Name);
+    uint8_t result = 0;
+
+    if (opcodeStr == "LOAD") {
+        result = memory.read(operand2); // Load from memory
+    } else if (opcodeStr == "STORE") {
+        memory.write(operand2, operand1); // Store to memory
+        result = operand1; // No modification to register
+    } else {
+        result = alu.performOperation(opcodeStr, operand1, operand2);
     }
 
-    void execute(uint8_t opcode, uint8_t reg1, uint8_t reg2) {
-        std::string opcodeStr = getOpcodeString(opcode);
+    registers.set(reg1Name, result);
 
-        uint8_t operand1 = registers.get("R" + std::to_string(reg1));
-        uint8_t operand2 = registers.get("R" + std::to_string(reg2));
-        uint8_t result;
+    std::cout << "[Execute] " << opcodeStr
+              << " " << reg1Name << ", " << reg2Name
+              << " => Updated " << reg1Name << ": " << std::bitset<8>(result) << "\n";
+    registers.display();
+}
 
-        if (opcodeStr == "LOAD") {
-            result = memory.read(operand2); // Load from memory
-        } else if (opcodeStr == "STORE") {
-            memory.write(operand2, operand1); // Store to memory
-            result = operand1; // No modification to register
-        } else {
-            result = alu.performOperation(opcodeStr, operand1, operand2);
-        }
-
-        registers.set("R" + std::to_string(reg1), result);
-
-        std::cout << "[Execute] " << opcodeStr
-                  << " R" << reg1 << ", R" << reg2
-                  << " => Updated R" << reg1 << ": " << std::bitset<8>(result) << "\n";
-        registers.display();
-    }
 
     std::string getOpcodeString(uint8_t opcode) {
         switch (opcode) {
