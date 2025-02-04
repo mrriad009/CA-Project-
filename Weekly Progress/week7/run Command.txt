@@ -1,0 +1,3 @@
+g++ -o my_program main.cpp ALU.cpp Register.cpp Memory.cpp CPU.cpp Assembler.cpp
+
+./my_program
