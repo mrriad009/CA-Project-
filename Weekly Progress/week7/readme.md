@@ -31,7 +31,7 @@ class ALU {
 public:
     int performOperation(const std::string& opcode, int operand1, int operand2);
 };
-
+```cpp
 ## 2. Registers
 
 The Registers class maintains the state of the CPU’s general-purpose registers (R0, R1, R2, R3). Registers hold values that are used in instructions for arithmetic and memory operations.
