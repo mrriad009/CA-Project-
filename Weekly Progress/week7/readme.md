@@ -167,7 +167,7 @@ When the OUTPUT instruction is encountered, the value of the specified register 
 ### File Handling
 
 - **Input File**: The program reads assembly code from the file `input.txt`.
-- **Output File**: The results of the program execution (including memory and register states) are saved to the file `output.txt`.
+
 
 ## Memory and Register Management
 
