@@ -5,19 +5,26 @@ This week’s project focuses on implementing a basic CPU simulator that emulate
 The implementation also includes a basic Assembler that converts assembly code into machine code, simulating the full functionality of a simplified CPU. The project is structured to follow modular programming practices, using separate classes for CPU components to facilitate future extensibility and maintainability.
 
 ## Table of Contents
-1. [Classes and Functionality](#classes-and-functionality)
-2. [Instruction Set](#instruction-set)
-3. [Assembler](#assembler)
-4. [Execution Flow](#execution-flow)
-5. [Input/Output](#inputoutput)
-6. [Memory and Register Management](#memory-and-register-management)
-7. [Setup and Compilation](#setup-and-compilation)
-8. [Known Issues and Future Improvements](#known-issues-and-future-improvements)
-9. [Conclusion](#conclusion)
+- [CPU Simulator Project](#cpu-simulator-project)
+  - [Table of Contents](#table-of-contents)
+  - [Classes and Functionality](#classes-and-functionality)
+    - [1. ALU (Arithmetic Logic Unit)](#1-alu-arithmetic-logic-unit)
+    - [2. Registers](#2-registers)
+    - [3. Memory](#3-memory)
+    - [4. CPU](#4-cpu)
+  - [Instruction Set](#instruction-set)
+  - [Assembler](#assembler)
+    - [Assembler Example](#assembler-example)
+  - [Execution Flow](#execution-flow)
+  - [Input/Output](#inputoutput)
+    - [Input Handling](#input-handling)
+    - [Output Handling](#output-handling)
+    - [File Handling](#file-handling)
+  - [Memory and Register Management](#memory-and-register-management)
 
 ## Classes and Functionality
 
-## 1. ALU (Arithmetic Logic Unit)
+### 1. ALU (Arithmetic Logic Unit)
 
 The ALU is responsible for performing basic arithmetic and logical operations on operands. Supported operations include:
 
@@ -31,8 +38,9 @@ class ALU {
 public:
     int performOperation(const std::string& opcode, int operand1, int operand2);
 };
-```cpp
-## 2. Registers
+```
+
+### 2. Registers
 
 The Registers class maintains the state of the CPU’s general-purpose registers (R0, R1, R2, R3). Registers hold values that are used in instructions for arithmetic and memory operations.
 
@@ -45,8 +53,9 @@ public:
     void set(const std::string& reg, int value);
     void display(std::ostream& outputStream);
 };
+```
 
-## 3. Memory
+### 3. Memory
 
 The Memory class simulates the system's memory space, providing methods for reading and writing to memory addresses. It stores values used in the STORE and LOAD operations.
 
@@ -59,8 +68,9 @@ public:
     void write(int address, int value);
     void display(std::ostream& outputStream);
 };
+```
 
-## 4. CPU
+### 4. CPU
 
 The CPU class ties everything together, controlling the program counter, instruction fetching, decoding, and execution of instructions. It also handles memory access, register updates, and the ALU operations.
 
@@ -76,6 +86,7 @@ public:
     void loadProgram(const std::vector<int>& program);
     void executeProgram(std::ostream& outputStream);
 };
+```
 
 ## Instruction Set
 
@@ -95,35 +106,38 @@ The CPU supports a basic set of instructions that are encoded into machine code 
 
 The Assembler class converts assembly instructions into machine code for the CPU. The assembly code consists of opcode and register operands. The assembler translates these into a format that the CPU can execute.
 
-
-## Assembler Example
+### Assembler Example
 
 For example, the instruction:
 
-``
+```
 ADD R0 R1
-``
+```
+
 is converted into machine code like this:
+
 ```
 193
+```
+
 The assembler operates as follows:
 
-cpp
-Copy
-Edit
+```cpp
 std::vector<int> assemble(const std::string& assemblyCode);
+```
+
 The assembler parses each line, converts the opcodes and registers into the corresponding machine code, and returns a list of machine instructions.
 
-Execution Flow
+## Execution Flow
+
 The execution flow of the CPU involves the following steps:
 
-Fetch: The CPU fetches the instruction from memory using the program counter.
-Decode: The instruction is decoded into its opcode and operands.
-Execute: The appropriate operation is performed using the ALU, and the registers or memory are updated.
-Update State: The state of the registers and memory is displayed after each instruction execution.
-cpp
-Copy
-Edit
+1. **Fetch**: The CPU fetches the instruction from memory using the program counter.
+2. **Decode**: The instruction is decoded into its opcode and operands.
+3. **Execute**: The appropriate operation is performed using the ALU, and the registers or memory are updated.
+4. **Update State**: The state of the registers and memory is displayed after each instruction execution.
+
+```cpp
 void CPU::executeProgram(std::ostream& outputStream) {
     while (programCounter < instructionMemory.size()) {
         int instruction = instructionMemory[programCounter];
@@ -132,24 +146,32 @@ void CPU::executeProgram(std::ostream& outputStream) {
         decodeAndExecute(instruction, outputStream);
     }
 }
-Input/Output
-Input Handling
+```
+
+## Input/Output
+
+### Input Handling
+
 The program accepts user input when the INPUT instruction is encountered. For example:
 
-arduino
-Copy
-Edit
+```
 INPUT R0
+```
+
 This will prompt the user to enter a value to be stored in R0.
 
-Output Handling
+### Output Handling
+
 When the OUTPUT instruction is encountered, the value of the specified register is printed to the console.
 
-File Handling
-Input File: The program reads assembly code from the file input.txt.
-Output File: The results of the program execution (including memory and register states) are saved to the file output.txt.
-Memory and Register Management
-The memory space in the CPU simulator is managed using a vector<int> array. Initially, all memory locations are set to 0.
+### File Handling
+
+- **Input File**: The program reads assembly code from the file `input.txt`.
+- **Output File**: The results of the program execution (including memory and register states) are saved to the file `output.txt`.
+
+## Memory and Register Management
+
+The memory space in the CPU simulator is managed using a `vector<int>` array. Initially, all memory locations are set to 0.
 
 Registers are stored in a map and can be accessed and updated via methods in the Registers class. Each register's value is updated after each instruction execution.
 
