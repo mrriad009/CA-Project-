@@ -1,0 +1,98 @@
+Program Counter: 0
+Fetching instruction at address 0: 513
+Executing instruction: 513 (ADD R0 R1)
+Updated R0 to 4
+Current Register States: R0: 4 R1: 4 R2: 9 R3: 10 
+Current Memory State: Address 0: 0 Address 1: 0 Address 2: 0 Address 3: 0 Address 4: 0 Address 5: 0 Address 6: 0 Address 7: 0 Address 8: 0 Address 9: 0 Address 10: 0 Address 11: 0 Address 12: 0 Address 13: 0 Address 14: 0 Address 15: 0 Address 16: 0 Address 17: 0 Address 18: 0 Address 19: 0 Address 20: 0 Address 21: 0 Address 22: 0 Address 23: 0 Address 24: 0 
+
+Program Counter: 1
+Fetching instruction at address 1: 522
+Executing instruction: 522 (ADD R1 R2)
+Updated R1 to 13
+Current Register States: R0: 4 R1: 13 R2: 9 R3: 10 
+Current Memory State: Address 0: 0 Address 1: 0 Address 2: 0 Address 3: 0 Address 4: 0 Address 5: 0 Address 6: 0 Address 7: 0 Address 8: 0 Address 9: 0 Address 10: 0 Address 11: 0 Address 12: 0 Address 13: 0 Address 14: 0 Address 15: 0 Address 16: 0 Address 17: 0 Address 18: 0 Address 19: 0 Address 20: 0 Address 21: 0 Address 22: 0 Address 23: 0 Address 24: 0 
+
+Program Counter: 2
+Fetching instruction at address 2: 531
+Executing instruction: 531 (ADD R2 R3)
+Updated R2 to 19
+Current Register States: R0: 4 R1: 13 R2: 19 R3: 10 
+Current Memory State: Address 0: 0 Address 1: 0 Address 2: 0 Address 3: 0 Address 4: 0 Address 5: 0 Address 6: 0 Address 7: 0 Address 8: 0 Address 9: 0 Address 10: 0 Address 11: 0 Address 12: 0 Address 13: 0 Address 14: 0 Address 15: 0 Address 16: 0 Address 17: 0 Address 18: 0 Address 19: 0 Address 20: 0 Address 21: 0 Address 22: 0 Address 23: 0 Address 24: 0 
+
+Program Counter: 3
+Fetching instruction at address 3: 536
+Executing instruction: 536 (ADD R3 R0)
+Updated R3 to 14
+Current Register States: R0: 4 R1: 13 R2: 19 R3: 14 
+Current Memory State: Address 0: 0 Address 1: 0 Address 2: 0 Address 3: 0 Address 4: 0 Address 5: 0 Address 6: 0 Address 7: 0 Address 8: 0 Address 9: 0 Address 10: 0 Address 11: 0 Address 12: 0 Address 13: 0 Address 14: 0 Address 15: 0 Address 16: 0 Address 17: 0 Address 18: 0 Address 19: 0 Address 20: 0 Address 21: 0 Address 22: 0 Address 23: 0 Address 24: 0 
+
+Program Counter: 4
+Fetching instruction at address 4: 1
+Executing instruction: 1 (ADD R0 R1)
+Updated R0 to 17
+Current Register States: R0: 17 R1: 13 R2: 19 R3: 14 
+Current Memory State: Address 0: 0 Address 1: 0 Address 2: 0 Address 3: 0 Address 4: 0 Address 5: 0 Address 6: 0 Address 7: 0 Address 8: 0 Address 9: 0 Address 10: 0 Address 11: 0 Address 12: 0 Address 13: 0 Address 14: 0 Address 15: 0 Address 16: 0 Address 17: 0 Address 18: 0 Address 19: 0 Address 20: 0 Address 21: 0 Address 22: 0 Address 23: 0 Address 24: 0 
+
+Program Counter: 5
+Fetching instruction at address 5: 514
+Executing instruction: 514 (ADD R0 R2)
+Updated R0 to 36
+Current Register States: R0: 36 R1: 13 R2: 19 R3: 14 
+Current Memory State: Address 0: 0 Address 1: 0 Address 2: 0 Address 3: 0 Address 4: 0 Address 5: 0 Address 6: 0 Address 7: 0 Address 8: 0 Address 9: 0 Address 10: 0 Address 11: 0 Address 12: 0 Address 13: 0 Address 14: 0 Address 15: 0 Address 16: 0 Address 17: 0 Address 18: 0 Address 19: 0 Address 20: 0 Address 21: 0 Address 22: 0 Address 23: 0 Address 24: 0 
+
+Program Counter: 6
+Fetching instruction at address 6: 83
+Executing instruction: 83 (SUB R2 R3)
+Updated R2 to 5
+Current Register States: R0: 36 R1: 13 R2: 5 R3: 14 
+Current Memory State: Address 0: 0 Address 1: 0 Address 2: 0 Address 3: 0 Address 4: 0 Address 5: 0 Address 6: 0 Address 7: 0 Address 8: 0 Address 9: 0 Address 10: 0 Address 11: 0 Address 12: 0 Address 13: 0 Address 14: 0 Address 15: 0 Address 16: 0 Address 17: 0 Address 18: 0 Address 19: 0 Address 20: 0 Address 21: 0 Address 22: 0 Address 23: 0 Address 24: 0 
+
+Program Counter: 7
+Fetching instruction at address 7: 529
+Executing instruction: 529 (ADD R2 R1)
+Updated R2 to 18
+Current Register States: R0: 36 R1: 13 R2: 18 R3: 14 
+Current Memory State: Address 0: 0 Address 1: 0 Address 2: 0 Address 3: 0 Address 4: 0 Address 5: 0 Address 6: 0 Address 7: 0 Address 8: 0 Address 9: 0 Address 10: 0 Address 11: 0 Address 12: 0 Address 13: 0 Address 14: 0 Address 15: 0 Address 16: 0 Address 17: 0 Address 18: 0 Address 19: 0 Address 20: 0 Address 21: 0 Address 22: 0 Address 23: 0 Address 24: 0 
+
+Program Counter: 8
+Fetching instruction at address 8: 11
+Executing instruction: 11 (ADD R1 R3)
+Updated R1 to 27
+Current Register States: R0: 36 R1: 27 R2: 18 R3: 14 
+Current Memory State: Address 0: 0 Address 1: 0 Address 2: 0 Address 3: 0 Address 4: 0 Address 5: 0 Address 6: 0 Address 7: 0 Address 8: 0 Address 9: 0 Address 10: 0 Address 11: 0 Address 12: 0 Address 13: 0 Address 14: 0 Address 15: 0 Address 16: 0 Address 17: 0 Address 18: 0 Address 19: 0 Address 20: 0 Address 21: 0 Address 22: 0 Address 23: 0 Address 24: 0 
+
+Program Counter: 9
+Fetching instruction at address 9: 129
+Executed instruction: MUL R0 R1
+Updated R0 to 972
+Current Register States: R0: 972 R1: 27 R2: 18 R3: 14 
+Current Memory State: Address 0: 0 Address 1: 0 Address 2: 0 Address 3: 0 Address 4: 0 Address 5: 0 Address 6: 0 Address 7: 0 Address 8: 0 Address 9: 0 Address 10: 0 Address 11: 0 Address 12: 0 Address 13: 0 Address 14: 0 Address 15: 0 Address 16: 0 Address 17: 0 Address 18: 0 Address 19: 0 Address 20: 0 Address 21: 0 Address 22: 0 Address 23: 0 Address 24: 0 
+
+Program Counter: 10
+Fetching instruction at address 10: 202
+Executed instruction: DIV R1 R2
+Updated R1 to 1
+Current Register States: R0: 972 R1: 1 R2: 18 R3: 14 
+Current Memory State: Address 0: 0 Address 1: 0 Address 2: 0 Address 3: 0 Address 4: 0 Address 5: 0 Address 6: 0 Address 7: 0 Address 8: 0 Address 9: 0 Address 10: 0 Address 11: 0 Address 12: 0 Address 13: 0 Address 14: 0 Address 15: 0 Address 16: 0 Address 17: 0 Address 18: 0 Address 19: 0 Address 20: 0 Address 21: 0 Address 22: 0 Address 23: 0 Address 24: 0 
+
+Program Counter: 11
+Fetching instruction at address 11: 275
+Executing instruction: 275 (ADD R2 R3)
+Updated R2 to 32
+Current Register States: R0: 972 R1: 1 R2: 32 R3: 14 
+Current Memory State: Address 0: 0 Address 1: 0 Address 2: 0 Address 3: 0 Address 4: 0 Address 5: 0 Address 6: 0 Address 7: 0 Address 8: 0 Address 9: 0 Address 10: 0 Address 11: 0 Address 12: 0 Address 13: 0 Address 14: 0 Address 15: 0 Address 16: 0 Address 17: 0 Address 18: 0 Address 19: 0 Address 20: 0 Address 21: 0 Address 22: 0 Address 23: 0 Address 24: 0 
+
+Program Counter: 12
+Fetching instruction at address 12: 328
+Executing instruction: 328 (SUB R1 R0)
+Updated R1 to -971
+Current Register States: R0: 972 R1: -971 R2: 32 R3: 14 
+Current Memory State: Address 0: 0 Address 1: 0 Address 2: 0 Address 3: 0 Address 4: 0 Address 5: 0 Address 6: 0 Address 7: 0 Address 8: 0 Address 9: 0 Address 10: 0 Address 11: 0 Address 12: 0 Address 13: 0 Address 14: 0 Address 15: 0 Address 16: 0 Address 17: 0 Address 18: 0 Address 19: 0 Address 20: 0 Address 21: 0 Address 22: 0 Address 23: 0 Address 24: 0 
+
+Program Counter: 13
+Fetching instruction at address 13: 392
+Executed instruction: MUL R1 R0
+Updated R1 to -943812
+Current Register States: R0: 972 R1: -943812 R2: 32 R3: 14 
+Current Memory State: Address 0: 0 Address 1: 0 Address 2: 0 Address 3: 0 Address 4: 0 Address 5: 0 Address 6: 0 Address 7: 0 Address 8: 0 Address 9: 0 Address 10: 0 Address 11: 0 Address 12: 0 Address 13: 0 Address 14: 0 Address 15: 0 Address 16: 0 Address 17: 0 Address 18: 0 Address 19: 0 Address 20: 0 Address 21: 0 Address 22: 0 Address 23: 0 Address 24: 0 
+
