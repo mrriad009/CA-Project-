@@ -1,145 +1,145 @@
-# Week 8 Enhancements
+# Week 8 Progress
 
-## New Operations
+## 1. Profiling the Emulator to Identify Bottlenecks
+**Task:** Profile the emulator to determine where the performance bottlenecks exist, such as inefficient algorithms, excessive memory access, or slow operations.
 
-The instruction set was expanded to include the following new operations:
-- **MUL**: Multiply two registers (MUL R0 R1).
-- **DIV**: Divide one register by another (DIV R0 R1), with division-by-zero error handling.
-- **CMP**: Compare two registers (CMP R0 R1), setting a flag if they are equal (useful for branching).
-- **SHL**: Logical shift left (SHL R0 R1).
-- **SHR**: Logical shift right (SHR R0 R1).
+**Changes:**
 
-## Changes
+### Profiling with `std::chrono`
+- Added a profiling mechanism using `std::chrono::high_resolution_clock` to measure the time taken for executing key parts of the emulator.
+- A function `profileExecution()` was introduced to wrap the entire program execution, measuring its performance.
+- The execution time for loading, assembling, and running the program is now captured and displayed.
 
-- The ALU class was updated to handle new operations like multiplication, division, comparison, and shift operations.
-- The CPU class was updated to handle these new instructions by decoding and executing them.
-- The Assembler class was updated to support the new instructions and convert them into machine code.
+**Example:**
+```cpp
+auto start = chrono::high_resolution_clock::now();
 
-### Code Changes
+// Your code to be profiled (for example, execute the program)
+CPU cpu;
+string filename = "input.txt";
+string assemblyCode = loadAssemblyCode(filename);
+vector<int> machineCode = assemble(assemblyCode);
+executeProgram(cpu, machineCode);
 
-- **ALU** now supports: MUL, DIV, CMP, SHL, and SHR.
-- **CPU's** `decodeAndExecute()` method was modified to decode and execute these new operations.
-- **Assembler** was modified to include opcodes for the new instructions.
+auto end = chrono::high_resolution_clock::now();
+chrono::duration<double> duration = end - start;
+cout << "\nExecution Time: " << duration.count() << " seconds." << endl;
+```
+This enables you to analyze execution times and identify potential performance bottlenecks in the program.
 
-## Enhancements in Instruction Handling
+## 2. Optimize Critical Code Paths
+**Task:** Optimize critical code paths in the emulator to improve execution speed, particularly those that are executed frequently (e.g., register accesses, memory operations).
 
-### Week 7 Features
+**Changes:**
 
-- The CPU decoded and executed basic instructions like ADD, SUB, LOAD, STORE, etc.
+### Optimized Access to `unordered_map` for Registers and Opcodes
+- Replaced the `map` container with `unordered_map` for faster key-value lookups when accessing registers and opcodes.
+- This reduces the overhead of balancing the tree structure of `map` and allows for constant-time lookups, improving the efficiency of instruction decoding and register access.
 
-### Week 8 Enhancements
+**Example:**
+```cpp
+unordered_map<string, int> regs;
+```
 
-- **Advanced Arithmetic**: The CPU can now perform more complex operations, like multiplication and division, which were not supported in Week 7.
-- **Comparison**: The CPU can compare registers (CMP) and set flags for branching, which was not previously possible.
-- **Shift Operations**: The ability to perform bitwise shifts (SHL and SHR) was added.
+### Reduced Redundant Operations
+- Inside critical code paths (e.g., `decodeAndExecute`), intermediate results (like register values) are now stored in variables to avoid redundant calls.
 
-### Changes
+**Example:**
+```cpp
+int operand1 = registers.get("R" + to_string(reg1));
+int operand2 = registers.get("R" + to_string(reg2));
+```
 
-- The `performOperation` method in ALU was updated to handle the new operations.
-- The `decodeAndExecute` method in the CPU class was extended to decode the new instructions and perform the appropriate operations.
+### Streamlined Instruction Decoding
+- The instruction decoding process was simplified by removing unnecessary branching and computations.
+- The key operation was the `assemble()` function, where redundant checks were removed, making it more efficient.
 
-### Code Changes
+## 3. Enhance the Assembler for Better Instruction Encoding
+**Task:** Modify the assembler to ensure more efficient encoding of instructions and reduce unnecessary space usage or memory accesses.
 
-- **CPU.cpp**:
-  - Added logic to handle new instructions (MUL, DIV, CMP, SHL, SHR).
-  - Updated the `getOpcodeString()` method to return correct instruction names for new opcodes.
+**Changes:**
 
-## Improved Error Handling
+### Optimized Instruction Encoding
+- The assembler was optimized to handle instruction encoding in a more efficient way.
+- Used `unordered_map` for faster opcode and register lookup, which significantly improves the encoding process.
+- The encoded instructions are stored in a vector, reducing unnecessary memory reallocation.
 
-### Week 7 Features
+**Example:**
+```cpp
+int encodedInstruction = (opcodes[opcode] << 6) | (registers[reg1] << 3) | registers[reg2];
+machineCode.push_back(encodedInstruction);
+```
 
-- Basic error handling was present in the form of invalid memory access errors.
+### Improved Handling of Invalid Lines
+- The assembler now skips invalid or empty lines, ensuring only valid instructions are processed.
+- This helps in reducing the overhead of unnecessary processing and improves performance.
 
-### Week 8 Enhancements
+## 4. Optimized Memory Access and Register Operations
+**Task:** Ensure that memory and register operations are as efficient as possible, particularly in the context of frequently accessed registers or memory locations.
 
-- **Division by Zero Error**: In Week 8, division operations (DIV) now check for division by zero, preventing runtime errors and providing error messages.
-- **Input Error Handling**: Error messages were added for invalid input scenarios.
+**Changes:**
 
-### Changes
+### Optimized Memory Access
+- Instead of repeatedly calling the `regs` or `memorySpace` for values, results are stored in local variables, ensuring faster access to values in later operations.
 
-- In `ALU.cpp`, the DIV operation was modified to check for division by zero before attempting the operation.
-- The program now prints a helpful error message when division by zero occurs.
+**Example:**
+```cpp
+int operand1 = registers.get("R" + to_string(reg1));
+int operand2 = registers.get("R" + to_string(reg2));
+```
 
-### Code Changes
+### Improved Memory Writing
+- In the `Memory` class, the `write()` method now includes better checks for out-of-bound memory writes and reduces logging to only the most critical parts of the code.
 
-- **ALU.cpp**:
-  - Added error checking in `performOperation` for DIV to handle division by zero gracefully.
+## 5. Profiling Execution Time
+**Task:** Measure and display the time it takes to execute the program, so improvements in performance can be tracked.
 
-## Updated Instruction Set and Assembler
+**Changes:**
 
-### Week 7 Features
+### Time Measurement with `std::chrono`
+- We encapsulated the entire program execution in the `profileExecution()` function to measure how long the program takes to execute, including loading assembly, converting to machine code, and running the CPU instructions.
+- This allows you to easily measure the impact of optimizations made throughout the emulator.
 
-- The assembler supported basic instructions like ADD, SUB, LOAD, STORE, etc.
-- Each instruction was converted into machine code by the assembler using an opcode and register addressing scheme.
+## 6. Cleaner Code and Function Separation
+**Task:** Improve code readability and organization by separating different concerns into distinct functions.
 
-### Week 8 Enhancements
+**Changes:**
 
-- Week 8 updated the assembler to support the new instructions (MUL, DIV, CMP, SHL, SHR).
-- The opcode mapping was updated in the Assembler class to include the new instructions, allowing them to be parsed from assembly code and converted into machine code.
+### Function Separation
+- A new function `profileExecution()` was created to manage the profiling aspect, making the `main()` function cleaner and more focused.
+- The `loadAssemblyCode()`, `assemble()`, and `executeProgram()` functions were separated for better modularity and easier maintenance.
 
-### Changes
+**Example:**
+```cpp
+string loadAssemblyCode(const string& filename) {
+    // Load code from file
+}
 
-- The assembler now converts MUL, DIV, CMP, SHL, and SHR instructions to their corresponding opcodes in machine code.
-- The `Assembler.cpp` file now handles additional operations, expanding the instruction set for the simulator.
+vector<int> assemble(const string& assemblyCode) {
+    // Assemble instructions into machine code
+}
 
-### Code Changes
+void executeProgram(CPU& cpu, const vector<int>& machineCode) {
+    // Execute program with given machine code
+}
+```
 
-- **Assembler.cpp**:
-  - Added new opcodes for the new instructions (MUL, DIV, CMP, SHL, SHR).
-  - The assembler parses these instructions from assembly code and converts them to machine code correctly.
+## Summary of Changes:
+### Profiling:
+- Introduced profiling to measure and track execution time using `std::chrono`.
+- Provided clear timing results to help identify performance bottlenecks.
 
-## Handling New Instructions in CPU Execution
+### Optimized Code Paths:
+- Replaced `map` with `unordered_map` for faster lookups.
+- Reduced redundant operations in frequently called functions.
+- Simplified instruction decoding to minimize processing overhead.
 
-### Week 7 Features
+### Instruction Encoding Enhancement:
+- Streamlined the instruction encoding process to minimize unnecessary operations and improve performance.
 
-- The CPU class fetched instructions, decoded them, and executed them based on the instruction set (e.g., ADD, SUB).
+### Memory and Register Operations:
+- Optimized access to registers and memory to reduce overhead.
 
-### Week 8 Enhancements
-
-- The CPU class was updated to handle new instructions like MUL, DIV, CMP, SHL, and SHR during the fetch-decode-execute cycle.
-- The CPU now updates the registers and memory for each new instruction, and handles each operation accordingly.
-
-### Changes
-
-- The `decodeAndExecute` method was modified to include the logic for handling the new instructions (MUL, DIV, CMP, SHL, SHR).
-- The register state was updated after each instruction execution.
-
-### Code Changes
-
-- **CPU.cpp**:
-  - Updated the `decodeAndExecute` function to handle the new instructions.
-  - Extended the logic to perform arithmetic, logical, and comparison operations and update the register values accordingly.
-
-## Updated Main Program (I/O Handling)
-
-### Week 7 Features
-
-- The program reads assembly code from a file (`input.txt`) and writes the output to a file (`output.txt`).
-- The execution logic printed the register and memory states after each instruction.
-
-### Week 8 Enhancements
-
-- Division by Zero errors and invalid instructions are handled more gracefully in Week 8.
-- The program continues to read from the `input.txt` file and output results to `output.txt`, but now handles more complex operations (e.g., multiplication, shifts).
-
-### Changes
-
-- The `main.cpp` file remains largely the same in terms of structure, but with enhanced error handling and logging of new instructions.
-
-### Code Changes
-
-- **main.cpp**:
-  - Slight modifications to handle new instructions and print relevant output after each execution.
-
-## Summary of Key Changes in Week 8
-
-| Feature            | Week 7                              | Week 8                                                                 |
-|--------------------|-------------------------------------|-----------------------------------------------------------------------|
-| New Instructions   | Basic operations (ADD, SUB, etc.)   | Added new instructions: MUL, DIV, CMP, SHL, SHR                       |
-| ALU                | Basic arithmetic operations         | Extended to handle multiplication, division, comparison, shifts       |
-| CPU                | Fetch-decode-execute basic ops      | Extended to handle new instructions and comparison                    |
-| Assembler          | Converts basic assembly to machine code | Supports new instructions and corresponding opcodes                    |
-| Error Handling     | Basic memory access errors          | Added division-by-zero error handling and other validation checks     |
-| Control Flow       | N/A                                 | Not yet implemented in Week 8, will be added in future                |
-| Execution Flow     | Executes basic instructions         | Handles new instructions, executes them and updates the state         |
-| Input/Output       | Read from `input.txt`, output to `output.txt` | Same, but with more detailed logging and error reporting              |
+### Cleaner Code:
+- Separated concerns into smaller, more manageable functions.
+- Simplified the `main()` function to focus on high-level tasks.
