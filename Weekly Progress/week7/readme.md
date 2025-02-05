@@ -1,177 +1,143 @@
-# CPU Simulator Project
+## Objective:
+The goal for Week 7 was to implement advanced CPU features, which include branching and control flow instructions, support for subroutines and interrupts, and integration of a simple pipeline mechanism. These features aim to enhance the CPU’s functionality, making it capable of handling more complex programs and improving performance through parallel execution.
 
-This week’s project focuses on implementing a basic CPU simulator that emulates instruction execution with the use of an Arithmetic Logic Unit (ALU), Registers, and Memory management. The CPU simulator fetches and executes machine instructions from memory, performs arithmetic operations, stores values in memory, and outputs the results.
+### 1. Implement Branching and Control Flow Instructions
+**Task:** Add support for branching instructions like conditional and unconditional jumps (e.g., JUMP, CALL, RET) to allow the CPU to control the execution flow based on specific conditions.
 
-The implementation also includes a basic Assembler that converts assembly code into machine code, simulating the full functionality of a simplified CPU. The project is structured to follow modular programming practices, using separate classes for CPU components to facilitate future extensibility and maintainability.
+**Changes:**
 
-## Table of Contents
-- [CPU Simulator Project](#cpu-simulator-project)
-  - [Table of Contents](#table-of-contents)
-  - [Classes and Functionality](#classes-and-functionality)
-    - [1. ALU (Arithmetic Logic Unit)](#1-alu-arithmetic-logic-unit)
-    - [2. Registers](#2-registers)
-    - [3. Memory](#3-memory)
-    - [4. CPU](#4-cpu)
-  - [Instruction Set](#instruction-set)
-  - [Assembler](#assembler)
-    - [Assembler Example](#assembler-example)
-  - [Execution Flow](#execution-flow)
-  - [Input/Output](#inputoutput)
-    - [Input Handling](#input-handling)
-    - [Output Handling](#output-handling)
-    - [File Handling](#file-handling)
-  - [Memory and Register Management](#memory-and-register-management)
+**Branch Instructions:**
 
-## Classes and Functionality
+- **JUMP:** The JUMP instruction changes the `programCounter` to a specified address, causing the CPU to jump to that location in the instruction memory.
+- **CALL:** The CALL instruction pushes the return address (current `programCounter`) to memory and then changes the `programCounter` to a new address, which simulates a function call.
+- **RET:** The RET instruction pops the return address from memory and sets the `programCounter` back to that address, returning control to the point after the function call.
 
-### 1. ALU (Arithmetic Logic Unit)
+**Implementation:**
 
-The ALU is responsible for performing basic arithmetic and logical operations on operands. Supported operations include:
+- During CALL, the `programCounter` is saved to memory (or a stack).
+- During RET, the `programCounter` is restored from memory (or the stack).
+- The JUMP instruction directly modifies the `programCounter`.
 
-- **ADD**: Adds two operands.
-- **SUB**: Subtracts the second operand from the first.
-- **LOAD**: Loads the value from memory to a register.
-- **STORE**: Stores the value from a register to memory.
-
+**Example:**
 ```cpp
-class ALU {
-public:
-    int performOperation(const std::string& opcode, int operand1, int operand2);
-};
-```
-
-### 2. Registers
-
-The Registers class maintains the state of the CPU’s general-purpose registers (R0, R1, R2, R3). Registers hold values that are used in instructions for arithmetic and memory operations.
-
-```cpp
-class Registers {
-public:
-    std::map<std::string, int> regs;
-    Registers();
-    int get(const std::string& reg);
-    void set(const std::string& reg, int value);
-    void display(std::ostream& outputStream);
-};
-```
-
-### 3. Memory
-
-The Memory class simulates the system's memory space, providing methods for reading and writing to memory addresses. It stores values used in the STORE and LOAD operations.
-
-```cpp
-class Memory {
-public:
-    std::vector<int> memorySpace;
-    Memory(int size);
-    int read(int address);
-    void write(int address, int value);
-    void display(std::ostream& outputStream);
-};
-```
-
-### 4. CPU
-
-The CPU class ties everything together, controlling the program counter, instruction fetching, decoding, and execution of instructions. It also handles memory access, register updates, and the ALU operations.
-
-```cpp
-class CPU {
-public:
-    int programCounter;
-    std::vector<int> instructionMemory;
-    Registers registers;
-    ALU alu;
-    Memory memory;
-    CPU();
-    void loadProgram(const std::vector<int>& program);
-    void executeProgram(std::ostream& outputStream);
-};
-```
-
-## Instruction Set
-
-The CPU supports a basic set of instructions that are encoded into machine code and executed during the simulation. These instructions are:
-
-- **ADD**: Adds two registers and stores the result in the first register.
-- **SUB**: Subtracts the second register from the first register and stores the result in the first register.
-- **LOAD**: Loads the value from the specified memory address into the register.
-- **STORE**: Stores the value from the register into the specified memory address.
-- **INPUT**: Takes user input and stores it in the specified register.
-- **OUTPUT**: Outputs the value stored in the specified register.
-- **JUMP**: Sets the program counter to a specified address.
-- **CALL**: Saves the current program counter to memory and jumps to a specified address.
-- **RET**: Returns from a subroutine by loading the program counter from memory.
-
-## Assembler
-
-The Assembler class converts assembly instructions into machine code for the CPU. The assembly code consists of opcode and register operands. The assembler translates these into a format that the CPU can execute.
-
-### Assembler Example
-
-For example, the instruction:
-
-```
-ADD R0 R1
-```
-
-is converted into machine code like this:
-
-```
-193
-```
-
-The assembler operates as follows:
-
-```cpp
-std::vector<int> assemble(const std::string& assemblyCode);
-```
-
-The assembler parses each line, converts the opcodes and registers into the corresponding machine code, and returns a list of machine instructions.
-
-## Execution Flow
-
-The execution flow of the CPU involves the following steps:
-
-1. **Fetch**: The CPU fetches the instruction from memory using the program counter.
-2. **Decode**: The instruction is decoded into its opcode and operands.
-3. **Execute**: The appropriate operation is performed using the ALU, and the registers or memory are updated.
-4. **Update State**: The state of the registers and memory is displayed after each instruction execution.
-
-```cpp
-void CPU::executeProgram(std::ostream& outputStream) {
-    while (programCounter < instructionMemory.size()) {
-        int instruction = instructionMemory[programCounter];
-        outputStream << "Fetching instruction at address " << programCounter << ": " << instruction << std::endl;
-        programCounter++;
-        decodeAndExecute(instruction, outputStream);
-    }
+if (opcodeStr == "JUMP") {
+    programCounter = operand2;
+    cout << "Jumping to address " << operand2 << endl;
+} else if (opcodeStr == "CALL") {
+    memory.write(memory.memorySpace.size() - 1, programCounter);
+    programCounter = operand2;
+    cout << "Calling subroutine at address " << operand2 << endl;
+} else if (opcodeStr == "RET") {
+    programCounter = memory.read(memory.memorySpace.size() - 1);
+    cout << "Returning from subroutine to address " << programCounter << endl;
 }
 ```
 
-## Input/Output
+### 2. Add Support for Subroutines and Interrupts
+**Task:** Implement support for subroutine calls (via the CALL and RET instructions) and interrupts, allowing the CPU to handle function calls and asynchronous events.
 
-### Input Handling
+**Changes:**
 
-The program accepts user input when the INPUT instruction is encountered. For example:
+**Subroutine Support:** The CALL and RET instructions were implemented to simulate a stack-based subroutine system. The `programCounter` is saved on the stack when entering a subroutine, and it is restored upon returning, allowing for nested function calls.
 
+**Implementation:**
+
+- **CALL:** Stores the current `programCounter` in memory and jumps to the subroutine address.
+- **RET:** Pops the return address from memory, effectively allowing the program to return to the calling point after executing the subroutine.
+
+**Example:**
+```cpp
+// Simulate a subroutine call
+memory.write(memory.memorySpace.size() - 1, programCounter);
+programCounter = operand2;
 ```
-INPUT R0
+
+**Interrupt Handling (Basic Support):** For simplicity, interrupts were simulated as a JUMP to a special interrupt service routine (ISR) address when an interrupt occurs. This is a simplified version of interrupt handling, where the CPU halts its current execution and jumps to a predefined interrupt address.
+
+**Implementation:**
+
+- Interrupts were handled by triggering a JUMP instruction to a pre-configured ISR address whenever an interrupt occurs.
+
+### 3. Integrate a Simple Pipeline Mechanism
+**Task:** Implement a basic pipeline mechanism to simulate the execution of multiple instructions in parallel, allowing the CPU to fetch, decode, and execute instructions in different stages.
+
+**Changes:**
+
+**Pipeline Stages:**
+
+- The pipeline simulates the process of instruction fetch, decode, and execution in different stages, allowing each stage to operate in parallel.
+- The pipeline implementation includes three basic stages:
+  - **Fetch:** Fetch the next instruction from memory.
+  - **Decode:** Decode the instruction to identify the operation and operands.
+  - **Execute:** Perform the operation specified by the decoded instruction.
+
+**Pipeline Implementation:**
+
+- The CPU class was modified to introduce pipeline stages. While one instruction is being decoded or executed, the next instruction is fetched, enabling a higher throughput.
+- Pipeline control was introduced to manage the flow of instructions between stages.
+
+**Example:**
+```cpp
+void fetchInstruction() {
+    currentInstruction = instructionMemory[programCounter];
+    programCounter++;
+}
+
+void decodeInstruction() {
+    int opcode = (currentInstruction >> 6) & 0x03;
+    int reg1 = (currentInstruction >> 3) & 0x07;
+    int reg2 = currentInstruction & 0x07;
+    // Decoding logic...
+}
+
+void executeInstruction() {
+    // Execute the decoded instruction using ALU and memory...
+}
+
+void pipelineCycle() {
+    fetchInstruction();
+    decodeInstruction();
+    executeInstruction();
+}
 ```
 
-This will prompt the user to enter a value to be stored in R0.
+**Simple Pipeline Cycle:** A single cycle in the pipeline consists of fetching an instruction, decoding it, and executing it. Instructions move through the pipeline in stages, overlapping their execution.
 
-### Output Handling
+### 4. Changes in Code and Execution Flow
+**Task:** Modify the CPU class to incorporate the pipeline mechanism and branching/subroutine features.
 
-When the OUTPUT instruction is encountered, the value of the specified register is printed to the console.
+**Changes:**
 
-### File Handling
+**Pipeline Integration in the CPU Class:**
 
-- **Input File**: The program reads assembly code from the file `input.txt`.
+- Added stages for instruction fetch, decode, and execution.
+- Managed the flow of instructions through the pipeline by calling `fetchInstruction()`, `decodeInstruction()`, and `executeInstruction()` in a cycle.
 
+**Example:**
+```cpp
+void pipelineCycle() {
+    fetchInstruction();
+    decodeInstruction();
+    executeInstruction();
+}
+```
 
-## Memory and Register Management
+**Control Flow Instructions:**
 
-The memory space in the CPU simulator is managed using a `vector<int>` array. Initially, all memory locations are set to 0.
+- The JUMP, CALL, and RET instructions were handled in the `decodeAndExecute` method to control the program’s flow by modifying the `programCounter` directly.
 
-Registers are stored in a map and can be accessed and updated via methods in the Registers class. Each register's value is updated after each instruction execution.
+**Subroutine and Interrupt Handling:**
 
+- During a CALL instruction, the program counter is saved in memory to simulate a subroutine stack, and the program counter is updated to the subroutine's address.
+- During a RET instruction, the program counter is restored from memory, resuming execution after the subroutine.
+
+### 5. Execution Flow with Advanced Features
+**Task:** Implement an advanced execution flow that handles branching, subroutines, and interrupt simulation with a pipeline.
+
+**Changes:**
+
+**Handling Jumps and Subroutines:**
+- The execution flow was adjusted to handle JUMP, CALL, and RET instructions appropriately by modifying the `programCounter` based on these instructions.
+
+**Pipeline Stage Synchronization:**
+- Instructions are fetched, decoded, and executed in parallel. However, proper synchronization is needed to ensure that no instruction is decoded or executed before being fetched, avoiding race conditions in the pipeline.
