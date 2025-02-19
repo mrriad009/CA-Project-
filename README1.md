@@ -1,5 +1,19 @@
 # Project Name: Virtual CPU Emulator
 
+## Group Members 
+- 1 . Mahamudul Islam Riad  ID : 11220320898
+- 2 . Mahatab Hossain       ID : 11220320997
+- 3 . Muzahidur Rahman      ID : 11220120780
+
+## Course Details
+- Course Name: Computer Architecture
+- Course Code: 3101
+- Section: 5F
+- Department: Computer Science & Engineering
+- Instructor: Vashkar Kar (Lecturer)
+- Institute: Northern University of Business & Technology Khulna
+- Website: www.nubtkhulna.ac.bd
+
 ## 1. Project Overview
 The goal of this project is to build a virtual CPU emulator. The emulator will replicate basic CPU functionality, including instruction execution, memory management, and I/O operations, in a simplified environment. This project will allow users to write and run assembly programs on a simulated CPU.
 
