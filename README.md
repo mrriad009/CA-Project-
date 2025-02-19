@@ -2,9 +2,9 @@
 # Project Name: Virtual CPU Emulator
 
 ## Group Members 
-- 1 . Mahamudul Islam Riad  .ID : 11220320898
-- 2 . Mahatab Hossain       .ID : 11220320997
-- 3 . Muzahidur Rahman      .ID : 11220120780
+- 1 . Mahamudul Islam Riad  || ID : 11220320898
+- 2 . Mahatab Hossain       || ID : 11220320997
+- 3 . Muzahidur Rahman      || ID : 11220120780
 
 ## Course Details
 - Course Name: Computer Architecture
